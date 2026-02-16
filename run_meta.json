@@ -1,0 +1,147 @@
+{
+  "run_tag": "RUN5_20260119_150231",
+  "run_dir": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231",
+  "merged_csv": "/content/drive/MyDrive/TESI_PROJECT/DATA/PULIZIA_DATABASE_AIS/final_data/AIS_merged_guilty_normal_LABELED.csv",
+  "params": {
+    "lookback_hours": 1,
+    "update_every_n_points": 10,
+    "max_points_window": 100,
+    "min_points_window": 20,
+    "pad_value": -99.0,
+    "test_size_ships": 0.2,
+    "val_size_ships": 0.2,
+    "random_seed": 42,
+    "use_shape_context": true,
+    "shape_features": [
+      {
+        "name": "LAND",
+        "path": "/content/drive/MyDrive/TESI_PROJECT/DATA/SPATIAL_DATA/LAND/boundaries_p_2021_v3.shp"
+      },
+      {
+        "name": "PORTS",
+        "path": "/content/drive/MyDrive/TESI_PROJECT/DATA/SPATIAL_DATA/PORTS/Principal_Ports.shp"
+      },
+      {
+        "name": "LANES",
+        "path": "/content/drive/MyDrive/TESI_PROJECT/DATA/SPATIAL_DATA/SHIPPING_LANES/shippinglanes.shp"
+      }
+    ]
+  },
+  "features": [
+    "LAT",
+    "LON",
+    "DT_SEC_RAW",
+    "DT_SEC_LOG",
+    "GAP_GT_10MIN",
+    "GAP_GT_30MIN",
+    "STEP_KM",
+    "SOG_KMH",
+    "GEO_KMH",
+    "ACC_KMH_S",
+    "COG_SIN",
+    "COG_COS",
+    "HDG_SIN",
+    "HDG_COS",
+    "TURN_DEG_S",
+    "Length",
+    "Width",
+    "Draft",
+    "VesselType",
+    "Cargo",
+    "Status",
+    "IS_CRUISE",
+    "IS_CARGO",
+    "IS_TANKER",
+    "DIST_LAND_KM",
+    "DIST_PORTS_KM",
+    "DIST_LANES_KM"
+  ],
+  "thresholding": {
+    "streaming_logic": "cumulative_mean",
+    "stream_consec_n": 2,
+    "far_target_val_constraint": 0.05,
+    "stream_thr_from_val_constraint": 0.39407837425395414,
+    "thr_debug": {
+      "n_val_normal_tracks": 13,
+      "n_val_guilty_tracks": 6,
+      "far_target": 0.05,
+      "thr_selected": 0.39407837425395414,
+      "val_far_at_thr": 0.07692307692307693,
+      "val_recall_at_thr": 0.0,
+      "normal_p95": 0.39407737425395417,
+      "normal_p99": 0.4141883996554783,
+      "normal_max": 0.4192161560058594,
+      "guilty_max": 0.3711644232273102
+    }
+  },
+  "window_level_metrics": {
+    "val": {
+      "auc_roc": 0.7276371308016878,
+      "auc_pr": 0.47926619501397105,
+      "report": "              precision    recall  f1-score   support\n\n           0      0.695     1.000     0.820       180\n           1      0.000     0.000     0.000        79\n\n    accuracy                          0.695       259\n   macro avg      0.347     0.500     0.410       259\nweighted avg      0.483     0.695     0.570       259\n",
+      "cm": [
+        [
+          180,
+          0
+        ],
+        [
+          79,
+          0
+        ]
+      ],
+      "n_windows": 259
+    },
+    "test": {
+      "auc_roc": 0.8124342643449808,
+      "auc_pr": 0.7787562364754042,
+      "report": "              precision    recall  f1-score   support\n\n           0      0.628     1.000     0.771       199\n           1      1.000     0.085     0.157       129\n\n    accuracy                          0.640       328\n   macro avg      0.814     0.543     0.464       328\nweighted avg      0.774     0.640     0.530       328\n",
+      "cm": [
+        [
+          199,
+          0
+        ],
+        [
+          118,
+          11
+        ]
+      ],
+      "n_windows": 328
+    },
+    "threshold_window_eval": 0.5
+  },
+  "track_level_metrics": {
+    "val": {
+      "n_tracks_eval_total": 19,
+      "n_normal_tracks_eval": 13,
+      "n_guilty_tracks_eval": 6,
+      "false_alert_rate_normal": 0.07692307692307693,
+      "track_level_recall_guilty": 0.0,
+      "n_alerts_total": 1,
+      "track_level_precision_alerts": 0.0,
+      "n_guilty_tracks_detected": 0,
+      "time_to_detection_mean_min": NaN,
+      "time_to_detection_median_min": NaN
+    },
+    "test": {
+      "n_tracks_eval_total": 25,
+      "n_normal_tracks_eval": 16,
+      "n_guilty_tracks_eval": 9,
+      "false_alert_rate_normal": 0.0625,
+      "track_level_recall_guilty": 0.7777777777777778,
+      "n_alerts_total": 8,
+      "track_level_precision_alerts": 0.875,
+      "n_guilty_tracks_detected": 7,
+      "time_to_detection_mean_min": 23.650000000000002,
+      "time_to_detection_median_min": 22.783333333333335
+    }
+  },
+  "outputs": {
+    "model_path": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/best_stream_gru_model.keras",
+    "scaler_path": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/scaler_mean_std.json",
+    "meta_path": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/run_meta.json",
+    "val_window_level_csv": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/val_window_level_report.csv",
+    "test_window_level_csv": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/test_window_level_report.csv",
+    "val_track_level_csv": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/val_streaming_track_report.csv",
+    "test_track_level_csv": "/content/drive/MyDrive/TESI_PROJECT/MODELS/MODEL_STREAMING_RUNS/RUN5_20260119_150231/test_streaming_track_report.csv"
+  }
+}
